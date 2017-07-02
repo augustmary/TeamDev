@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.dev.team.dao.UserDAO;
 import ua.dev.team.entity.Role;
@@ -15,8 +15,8 @@ import ua.dev.team.entity.User;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component
-public class UserDetailServiceImpl implements UserDetailsService{
+@Service("userDetailsService")
+public class UserDetailsServiceImpl implements UserDetailsService{
 
     @Autowired
     private UserDAO userDAO;

@@ -32,7 +32,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("userForm") User userForm,
+                               BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -43,25 +44,32 @@ public class UserController {
 
         securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
-        return "redirect:/index";
+        return "redirect:/tasks";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
-        if (error != null) {
-            model.addAttribute("error", "Username or password is incorrect.");
-        }
+    public String getLoginPage(Model model) {
+        return  "login";
+    }
 
+   @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(Model model, String error, String logout) {
+        String redirect = "login";// "redirect:/welcome";
+        if (error != null && !error.isEmpty()) {
+            System.out.println("er" + error);
+            model.addAttribute("error", "Username or password is incorrect.");
+            redirect = "login";
+        }
         if (logout != null) {
             model.addAttribute("message", "Logged out successfully.");
+            redirect = "login";
         }
-
-        return "login";
+        return redirect;
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
-        return "index";
+        return "welcome";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)

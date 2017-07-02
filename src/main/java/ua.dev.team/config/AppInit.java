@@ -1,5 +1,6 @@
 package ua.dev.team.config;
 
+import org.springframework.core.env.Environment;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -12,6 +13,18 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+    public AppInit() {
+        super();
+    }
+
+    @Override
+    protected WebApplicationContext createRootApplicationContext() {
+        WebApplicationContext ctx =  super.createRootApplicationContext();
+        Environment env = ctx.getEnvironment();
+
+        return ctx;
+    }
+
     @Override
     public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);

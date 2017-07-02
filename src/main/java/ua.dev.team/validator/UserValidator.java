@@ -33,11 +33,15 @@ public class UserValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "Required");
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size");//.userForm.password");
+            errors.rejectValue("password", "Size.userForm.password");
         }
 
         if (!user.getConfirmPassword().equals(user.getPassword())) {
             errors.rejectValue("confirmPassword", "Different.userForm.password");
         }
+        /*
+        if( !EmailValidator.getInstance().isValid( signupForm.getEmail() ) ){
+            errors.rejectValue("email", "email.notValid", "Email address is not valid.");
+        }*/
     }
 }

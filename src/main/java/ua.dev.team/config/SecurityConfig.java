@@ -14,7 +14,8 @@ import ua.dev.team.service.UserService;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackages = {"ua.dev.team.service", "ua.dev.team.service.dao"})
+@ComponentScan(basePackages = {"ua.dev.team.service", "ua.dev.team.service.dao",
+        "ua.dev.team.validator"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Префикс URL запросов для администраторов.
@@ -24,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Префикс URL запросов для менеджеров.
      */
-    private static final String MANAGER_REQUEST_URl = "/manager/**";
+    private static final String MANAGER_REQUEST_URl = "/tasks";
 
     /**
      * URL запроса для авторизации.
@@ -60,15 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * Объект сервиса для работы с зарегистрированными пользователями.
      * Поле помечано аннотацией @Autowired, которая позволит Spring автоматически инициализировать объект.
      */
-    @Autowired
-    public UserDetailsService userDetailsService;
 
-    /**
-     * Объект сервиса для работы с ролями пользователей.
-     * Поле помечано аннотацией @Autowired, которая позволит Spring автоматически инициализировать объект.
-     */
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     /**
      * Настройка правил доступа пользователей к страницам сайта. Указываем адреса ресурсов с
@@ -87,14 +85,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ADMIN_REQUEST_URl)
                 .hasRole(userService.ADMIN)
                 .antMatchers(MANAGER_REQUEST_URl)
-                .hasAnyRole(userService.ADMIN, userService.USER)
+                .hasAnyRole(userService.ADMIN, UserService.USER)
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage(LOGIN_URL)
                 .usernameParameter(USERNAME)
                 .passwordParameter(PASSWORD)
-                .defaultSuccessUrl("/", false)
+                .defaultSuccessUrl("/welcome", false)
                 .and()
                 .exceptionHandling().accessDeniedPage(ACCESS_DENIED_PAGE).and()
                 .csrf().disable();
@@ -122,4 +120,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+
 }
