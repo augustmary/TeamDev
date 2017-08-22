@@ -19,11 +19,11 @@ public class Task {
     @Column (name = "crtdate")
     private Date crtDate;
     @Column
-    private String number;
-    @Column
-    private String status;
-    @Column
     private String content;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    private Status status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author", referencedColumnName = "id")
@@ -47,6 +47,14 @@ public class Task {
 
     public Date getCrtDate() {
         return crtDate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public void setCrtDate(Date crtDate) {

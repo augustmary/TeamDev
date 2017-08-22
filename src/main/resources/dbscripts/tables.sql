@@ -1,4 +1,14 @@
+DROP TABLE IF EXISTS statuses;
 
+CREATE TYPE status AS ENUM ('NEW', 'WORK', 'SUSPENDED', 'TEST', 'DONE', 'REJECTION', 'CLOSED');
+
+CREATE TABLE statuses (
+  id          INT NOT NULL,
+  title       status,
+  description TEXT DEFAULT NULL
+);
+ALTER TABLE statuses OWNER TO postgres;
+-----------------------------------------------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS tasks;
 
 CREATE TABLE tasks
@@ -8,11 +18,11 @@ CREATE TABLE tasks
   content TEXT,
   number TEXT,
   crtdate timestamp without time zone,
-  author BIGSERIAL
+  author BIGSERIAL,
+  status_id INT NOT NULL
 );
-
 ALTER TABLE tasks OWNER TO postgres;
-
+-----------------------------------------------------------------------------------------------------------------------------
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users
@@ -22,14 +32,13 @@ CREATE TABLE users
   password TEXT,
   email TEXT
 );
-
 ALTER TABLE users OWNER TO postgres;
-
+-----------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE roles (
   id  BIGSERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL
 );
-
+-----------------------------------------------------------------------------------------------------------------------------
 CREATE TABLE user_roles (
   user_id INT NOT NULL,
   role_id INT NOT NULL,
@@ -39,3 +48,5 @@ CREATE TABLE user_roles (
 
   UNIQUE (user_id, role_id)
 );
+
+

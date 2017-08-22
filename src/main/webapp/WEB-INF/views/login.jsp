@@ -15,17 +15,12 @@
 
     <title>Log in with your account</title>
 
-    <!-- Bootstrap Core CSS -->
-    <style><%@include file="common/bootstrap/css/bootstrap.min.css"%></style>
-    <style><%@include file="common/bootstrap/font-awesome/css/font-awesome.min.css"%></style>
-    <style><%@include file="common/bootstrap/css/modern-business.css"%></style>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-
+    <jsp:include page="/WEB-INF/views/common/head.jsp"/>
 </head>
 
 <body>
-
+<!-- NAVBAR -->
+<jsp:include page="/WEB-INF/views/common/navbar.jsp"/>
 <div class="container">
 
     <form method="POST" action="${contextPath}/login" class="form-signin">

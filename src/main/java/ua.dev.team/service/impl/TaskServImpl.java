@@ -18,12 +18,12 @@ public class TaskServImpl implements TaskService {
         this.taskDAO = taskDAO;
     }
 
-    public Task get(String number) {
-        return taskDAO.findByNumber(number);
+    public Task get(long id) {
+        return taskDAO.findById(id);
     }
 
-    public void delete(String number) {
-        taskDAO.deleteByNumber(number);
+    public void delete(long id) {
+        taskDAO.deleteById(id);
     }
 
     /*public List<Task> findByDateOrderByCrtDate(Date crtdate) {

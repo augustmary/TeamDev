@@ -6,9 +6,9 @@ import ua.dev.team.entity.Task;
 @Repository
 public interface TaskDAO extends MainDAO<Task, Long> {
 
-    Task findByNumber(String number);
+    Task findById(long id);
 
-    void deleteByNumber(String number);
+    void deleteById(long id);
     /*@Query("SELECT t FROM tasks t WHERE t.crtdate = ?1 ORDER BY t.crtdate ASC")
     List<Task> findTasksByCrtTime(Date dummyVal);*/
 }

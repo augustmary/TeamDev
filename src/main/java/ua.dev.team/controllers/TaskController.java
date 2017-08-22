@@ -1,13 +1,14 @@
-package ua.dev.team.controllers.admin;
+package ua.dev.team.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.dev.team.entity.Task;
-import ua.dev.team.entity.User;
+import ua.dev.team.service.StatusService;
 import ua.dev.team.service.TaskService;
 import ua.dev.team.service.UserService;
 
@@ -17,6 +18,7 @@ public class TaskController {
 
     private TaskService taskService;
     private UserService userService;
+    private StatusService statusService;
 
     @Autowired
     public void setTaskService(TaskService taskService) {
@@ -26,6 +28,11 @@ public class TaskController {
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setStatusService(StatusService statusService) {
+        this.statusService = statusService;
     }
 
     @RequestMapping(value = "/tasks", method = RequestMethod.GET)
@@ -42,16 +49,35 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/add_task", method = RequestMethod.POST)
-    public ModelAndView addTask(@RequestParam String title,
+    public String addTask(@RequestParam String title,
                                 @RequestParam String content,
                                 ModelAndView modelAndView) {
         Task task = new Task();
         task.setTitle(title);
         task.setContent(content);
-        User maria = userService.findByUsername("Maria");
-        task.setAuthor(maria);
+        task.setStatus(statusService.getDefault());
+        task.setAuthor(userService.findByUsername("Maria"));
         taskService.update(task);
-        modelAndView.setViewName("tasks");
+        return "redirect:/tasks";
+    }
+
+    @RequestMapping(value = "/update_task", method = RequestMethod.POST)
+    public String editTask(@RequestParam long id, @RequestParam String title,
+                          @RequestParam String content) {
+        Task task = taskService.get(id);
+        task.setTitle(title);
+        task.setContent(content);
+       // task.setStatus();
+       // task.setAuthor(userService.findByUsername("Maria"));
+        taskService.update(task);
+        return "redirect:/tasks";
+    }
+
+    @RequestMapping(value = "/task_{id}", method = RequestMethod.GET)
+    public ModelAndView getEditTaskPage(@PathVariable(value = "id") long id, ModelAndView modelAndView) {
+        Task task = taskService.get(id);
+        modelAndView.setViewName("edit_task");
+        modelAndView.addObject(task);
         return modelAndView;
     }
 

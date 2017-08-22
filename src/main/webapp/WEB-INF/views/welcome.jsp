@@ -10,6 +10,9 @@
     <jsp:include page="/WEB-INF/views/common/head.jsp"/>
 </head>
 <body>
+<!-- NAVBAR -->
+<jsp:include page="/WEB-INF/views/common/navbar.jsp"/>
+
  <div class="container">
 
      <c:choose>
@@ -20,6 +23,7 @@
 
              <h2>Welcome to TeamDev, ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
              </h2>
+            <h3>Go to <a href="/tasks"> Tasks </a> </h3>
          </c:when>
          <c:otherwise>
              <form id="loginForm" method="GET" action="${contextPath}/login">

@@ -10,8 +10,8 @@
     <schema id="3" parent="1" name="public">
       <object-id>2200</object-id>
       <visible>1</visible>
-      <introspection-state-number>1004</introspection-state-number>
-      <introspection-timestamp>2017-07-02.04:41:01.563</introspection-timestamp>
+      <introspection-state-number>1065</introspection-state-number>
+      <introspection-timestamp>2017-07-29.19:37:17.163</introspection-timestamp>
     </schema>
     <schema id="4" parent="1" name="pg_catalog">
       <object-id>11</object-id>
@@ -50,156 +50,207 @@
     </sequence>
     <table id="14" parent="3" name="roles">
       <object-id>131623</object-id>
-      <state-number>984</state-number>
+      <state-number>1064</state-number>
     </table>
-    <table id="15" parent="3" name="tasks">
+    <table id="15" parent="3" name="statuses">
+      <object-id>131654</object-id>
+      <state-number>1065</state-number>
+    </table>
+    <table id="16" parent="3" name="tasks">
       <object-id>131600</object-id>
-      <state-number>1003</state-number>
+      <state-number>1065</state-number>
     </table>
-    <table id="16" parent="3" name="user_roles">
+    <table id="17" parent="3" name="user_roles">
       <object-id>131629</object-id>
       <state-number>984</state-number>
     </table>
-    <table id="17" parent="3" name="users">
+    <table id="18" parent="3" name="users">
       <object-id>131612</object-id>
       <state-number>1003</state-number>
     </table>
-    <column id="18" parent="14" name="id">
+    <column id="19" parent="14" name="id">
       <state-number>983</state-number>
       <mandatory>1</mandatory>
       <data-type>bigint|0</data-type>
       <default-expression>nextval('roles_id_seq'::regclass)</default-expression>
     </column>
-    <column id="19" parent="14" name="name">
+    <column id="20" parent="14" name="name">
       <state-number>983</state-number>
       <mandatory>1</mandatory>
       <data-type>varchar(100)|0</data-type>
     </column>
-    <index id="20" parent="14" name="roles_pkey">
+    <column id="21" parent="14" name="status_id">
+      <state-number>1061</state-number>
+      <data-type>bigint|0</data-type>
+    </column>
+    <index id="22" parent="14" name="roles_pkey">
       <object-id>131627</object-id>
       <columns>id</columns>
       <desc-columns />
       <unique>1</unique>
     </index>
-    <key id="21" parent="14" name="roles_pkey">
+    <key id="23" parent="14" name="roles_pkey">
       <object-id>131628</object-id>
       <columns>id</columns>
       <underlying-index>roles_pkey</underlying-index>
       <primary>1</primary>
     </key>
-    <column id="22" parent="15" name="id">
+    <foreign-key id="24" parent="14" name="fk_d425rnop36d7h3lu1cgd9satb">
+      <object-id>131662</object-id>
+      <columns>status_id</columns>
+      <ref-key>~.statuses.statuses_pkey</ref-key>
+      <cascade-update-rule>restrict</cascade-update-rule>
+      <cascade-delete-rule>restrict</cascade-delete-rule>
+    </foreign-key>
+    <column id="25" parent="15" name="id">
+      <state-number>1062</state-number>
+      <mandatory>1</mandatory>
+      <data-type>bigint|0</data-type>
+    </column>
+    <column id="26" parent="15" name="description">
+      <state-number>1062</state-number>
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="27" parent="15" name="title">
+      <state-number>1062</state-number>
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <index id="28" parent="15" name="statuses_pkey">
+      <object-id>131660</object-id>
+      <columns>id</columns>
+      <desc-columns />
+      <unique>1</unique>
+    </index>
+    <key id="29" parent="15" name="statuses_pkey">
+      <object-id>131661</object-id>
+      <columns>id</columns>
+      <underlying-index>statuses_pkey</underlying-index>
+      <primary>1</primary>
+    </key>
+    <column id="30" parent="16" name="id">
       <state-number>980</state-number>
       <mandatory>1</mandatory>
       <data-type>bigint|0</data-type>
       <default-expression>nextval('tasks_id_seq'::regclass)</default-expression>
     </column>
-    <column id="23" parent="15" name="title">
+    <column id="31" parent="16" name="title">
       <state-number>980</state-number>
       <data-type>text|0</data-type>
     </column>
-    <column id="24" parent="15" name="content">
+    <column id="32" parent="16" name="content">
       <state-number>980</state-number>
       <data-type>text|0</data-type>
     </column>
-    <column id="25" parent="15" name="number">
+    <column id="33" parent="16" name="number">
       <state-number>980</state-number>
       <data-type>text|0</data-type>
     </column>
-    <column id="26" parent="15" name="crtdate">
+    <column id="34" parent="16" name="crtdate">
       <state-number>980</state-number>
       <data-type>timestamp|0</data-type>
     </column>
-    <column id="27" parent="15" name="author">
+    <column id="35" parent="16" name="author">
       <state-number>980</state-number>
       <mandatory>1</mandatory>
       <data-type>bigint|0</data-type>
       <default-expression>nextval('tasks_author_seq'::regclass)</default-expression>
     </column>
-    <column id="28" parent="15" name="status">
+    <column id="36" parent="16" name="status">
       <state-number>1002</state-number>
       <data-type>varchar(255)|0</data-type>
     </column>
-    <index id="29" parent="15" name="tasks_pkey">
+    <column id="37" parent="16" name="status_id">
+      <state-number>1063</state-number>
+      <data-type>bigint|0</data-type>
+    </column>
+    <index id="38" parent="16" name="tasks_pkey">
       <object-id>131608</object-id>
       <columns>id</columns>
       <desc-columns />
       <unique>1</unique>
     </index>
-    <key id="30" parent="15" name="tasks_pkey">
+    <key id="39" parent="16" name="tasks_pkey">
       <object-id>131609</object-id>
       <columns>id</columns>
       <underlying-index>tasks_pkey</underlying-index>
       <primary>1</primary>
     </key>
-    <foreign-key id="31" parent="15" name="fk_jkn5q4kv81t9gl9x562sq2lsf">
+    <foreign-key id="40" parent="16" name="fk_jkn5q4kv81t9gl9x562sq2lsf">
       <object-id>131644</object-id>
       <columns>author</columns>
       <ref-key>~.users.users_pkey</ref-key>
       <cascade-update-rule>restrict</cascade-update-rule>
       <cascade-delete-rule>restrict</cascade-delete-rule>
     </foreign-key>
-    <column id="32" parent="16" name="user_id">
+    <foreign-key id="41" parent="16" name="fk_lyxatvk97npvc0k7kk74epknj">
+      <object-id>131667</object-id>
+      <columns>status_id</columns>
+      <ref-key>~.statuses.statuses_pkey</ref-key>
+      <cascade-update-rule>restrict</cascade-update-rule>
+      <cascade-delete-rule>restrict</cascade-delete-rule>
+    </foreign-key>
+    <column id="42" parent="17" name="user_id">
       <state-number>984</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
     </column>
-    <column id="33" parent="16" name="role_id">
+    <column id="43" parent="17" name="role_id">
       <state-number>984</state-number>
       <mandatory>1</mandatory>
       <data-type>integer|0</data-type>
     </column>
-    <index id="34" parent="16" name="user_roles_user_id_role_id_key">
+    <index id="44" parent="17" name="user_roles_user_id_role_id_key">
       <object-id>131632</object-id>
       <columns>user_id
 role_id</columns>
       <desc-columns />
       <unique>1</unique>
     </index>
-    <key id="35" parent="16" name="user_roles_user_id_role_id_key">
+    <key id="45" parent="17" name="user_roles_user_id_role_id_key">
       <object-id>131633</object-id>
       <columns>user_id
 role_id</columns>
       <underlying-index>user_roles_user_id_role_id_key</underlying-index>
     </key>
-    <foreign-key id="36" parent="16" name="user_roles_user_id_fkey">
+    <foreign-key id="46" parent="17" name="user_roles_user_id_fkey">
       <object-id>131634</object-id>
       <columns>user_id</columns>
       <ref-key>~.users.users_pkey</ref-key>
       <cascade-update-rule>restrict</cascade-update-rule>
       <cascade-delete-rule>restrict</cascade-delete-rule>
     </foreign-key>
-    <foreign-key id="37" parent="16" name="user_roles_role_id_fkey">
+    <foreign-key id="47" parent="17" name="user_roles_role_id_fkey">
       <object-id>131639</object-id>
       <columns>role_id</columns>
       <ref-key>~.roles.roles_pkey</ref-key>
       <cascade-update-rule>restrict</cascade-update-rule>
       <cascade-delete-rule>restrict</cascade-delete-rule>
     </foreign-key>
-    <column id="38" parent="17" name="id">
+    <column id="48" parent="18" name="id">
       <state-number>982</state-number>
       <mandatory>1</mandatory>
       <data-type>bigint|0</data-type>
       <default-expression>nextval('users_id_seq'::regclass)</default-expression>
     </column>
-    <column id="39" parent="17" name="username">
+    <column id="49" parent="18" name="username">
       <state-number>982</state-number>
       <data-type>text|0</data-type>
     </column>
-    <column id="40" parent="17" name="password">
+    <column id="50" parent="18" name="password">
       <state-number>982</state-number>
       <data-type>text|0</data-type>
     </column>
-    <column id="41" parent="17" name="email">
+    <column id="51" parent="18" name="email">
       <state-number>982</state-number>
       <data-type>text|0</data-type>
     </column>
-    <index id="42" parent="17" name="users_pkey">
+    <index id="52" parent="18" name="users_pkey">
       <object-id>131619</object-id>
       <columns>id</columns>
       <desc-columns />
       <unique>1</unique>
     </index>
-    <key id="43" parent="17" name="users_pkey">
+    <key id="53" parent="18" name="users_pkey">
       <object-id>131620</object-id>
       <columns>id</columns>
       <underlying-index>users_pkey</underlying-index>

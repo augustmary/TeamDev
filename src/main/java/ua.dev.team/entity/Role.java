@@ -19,6 +19,18 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
+    /**
+     * Статус .
+     * Значение поля (id объекта status) сохраняется в колонке "status_id".
+     * Между объектами классов {@link Task} и
+     * {@link Status} связь многие-к-одному, а именно
+     * много разных  могут иметь одинаковый статус выполнения.
+     * Выборка объекта status до первого доступа нему, при первом доступе к текущему объекту.
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    private Status status;
+
     public Long getId() {
         return id;
     }

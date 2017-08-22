@@ -33,8 +33,11 @@
                 <div class="col-md-1">
                     <h4>${task.author.username}</h4>
                 </div>
+                <div class="col-md-2">
+                    <h4>${task.status.description}</h4>
+                </div>
                 <div class="col-md-3">
-                    <a href="index.jsp">${task.title}</a>
+                    <a href="/task_${task.id}">${task.title}</a>
                 </div>
             </div>
         </c:forEach>
